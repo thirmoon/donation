@@ -40,6 +40,8 @@
   <script type="text/x-template" id="app-template">
     <v-app id="inspire">
       <ul>
+        總金額:<input type="text" v-model="balance" readonly> </ul>
+      <ul>
       <v-btn elevation="2"  v-on:click="addByName" >以姓名新增</v-btn>
       <v-btn elevation="2"  v-on:click="addByAddress" >以地址新增</v-btn>
       </ul>
@@ -109,6 +111,7 @@
       data() {
         return {
           overviewData: [],
+          balance:0,
           headers: [
             { text: '功德主姓名', value: 'name' },
             { text: '地址', value: 'address' },
@@ -134,12 +137,14 @@
       methods: {
         loadData: function () {
           let self = this;
+          this.balance=0;
           this.overviewData = []
           donationRef.once("value", function (snapshot) {
             snapshot.forEach(function (data) {
               let donation = data.val();
               donation.key = data.key;
               self.overviewData.push(donation);
+              self.balance+=Number(donation.amount);
             });
 
             self.overviewData = self.overviewData.sort(function (a, b) {
