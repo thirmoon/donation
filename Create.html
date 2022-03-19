@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>慈善亭 | 重大建設捐獻</title>
+  <link rel="stylesheet" href="./src/css/headquaters.css">
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="./dist/vuefire.js"></script>
+</head>
+
+<body>
+
+  <div id="app">
+    <section id="admin-wrapper">
+      <div id="form-wrapper">
+        <h1 class="page-title">慈善亭 | 重大建設捐獻</h1>
+        <h1 class="page-title">
+          <a href="Create.html">新增</a> |
+          <a href="Overview.html">總覽</a> |
+          <a href="Download.html">下載</a>
+        </h1>
+      </div>
+      <div id="form-wrapper">
+        姓名：<input v-model.trim="newDonation.name" placeholder="姓名">
+        電話：<input v-model.trim="newDonation.phone" placeholder="電話">
+        <br>
+        地址：<input v-model.trim="newDonation.address" placeholder="地址" id="address">
+        <br>
+        金額：<input v-model.trim="newDonation.amount"  placeholder="金額" type="number" id="amount">
+        <br>   
+        備註：<input v-model.trim="newDonation.memo" placeholder="備註" id="address">
+        <br>
+        <button v-on:click="addDonation">新增</button>
+      </div>
+    </section>
+
+
+
+  </div>
+
+  <script>
+    /* global Vue, firebase */
+
+    let config = {
+      apiKey: 'AIzaSyBJykOkltgTEmq5bTCA5pxUUCI52Tghx6g',
+      authDomain: 'light-1a6d4.firebaseapp.com',
+      databaseURL: 'https://light-1a6d4.firebaseio.com/',
+      projectId: 'light-1a6d4',
+      storageBucket: 'light-1a6d4.appspot.com',
+      messagingSenderId: '66654715141'
+    }
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+
+    let db = firebase.initializeApp(config).database()
+    let donationRef = db.ref('Donation')
+    new Vue({
+      el: '#app',
+      data: {
+        newDonation: {
+          name: (params.name != undefined) ? params.name : '' ,
+          phone: '',
+          amount:0,
+          address: (params.address != undefined) ? params.address : '',
+          memo: '',
+          modifyTime: Date.now()
+        },
+      },
+      firebase: {
+        Donations: donationRef.limitToLast(25),
+      },
+      methods: {
+        addDonationToFirebase: function (donation) {
+          donationRef.push({
+            name: donation.name,
+            phone: donation.phone,
+            address: donation.address,
+            memo: donation.memo,
+            amount: donation.amount,
+            modifyTime: Date.now()
+          })
+        },
+        addDonation: function () {
+          if (this.newDonation) {
+            this.addDonationToFirebase(this.newDonation);
+            this.newDonation = {
+              name: '',
+              phone: '',
+              address: '',
+              amount:0,
+              memo: '',
+              modifyTime: Date.now()
+            }
+            location.reload();
+          }
+        },
+
+      }
+    })
+  </script>
+</body>
+
+</html>
