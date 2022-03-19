@@ -69,6 +69,15 @@
           <template v-slot:item.amount="{ item }">
             <input  :name="item.amount" v-model.trim="item.amount" id="overview_amount">
           </template>
+          <template v-slot:item.isCash="{ item }">
+            <input type="checkbox"  v-model.trim="item.isCash">
+          </template>
+          <template v-slot:item.isBankTransfer="{ item }">
+            <input type="checkbox"  v-model.trim="item.isBankTransfer">
+          </template>
+          <template v-slot:item.item="{ item }">
+            <input  :name="item.item" v-model.trim="item.item" id="overview_amount">
+          </template>
           <template v-slot:item.memo="{ item }">
             <input  :name="item.memo" v-model.trim="item.memo">
           </template>
@@ -105,6 +114,9 @@
             { text: '地址', value: 'address' },
             { text: '電話', value: 'phone' },
             { text: '金額', value: 'amount' },
+            { text: '現金', value: 'isCash' },
+            { text: '匯款', value: 'isBankTransfer' },
+            { text: '項目', value: 'item' },
             { text: '備註', value: 'memo' },
             { text: '操作', value: 'actions' },
 
