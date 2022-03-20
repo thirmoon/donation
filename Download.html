@@ -156,7 +156,9 @@
             snapshot.forEach(function (data) {
               let donation = data.val();
               donation.key = data.key;
-              self.overviewData.push(donation);
+              if(donation.amount !=0){
+                self.overviewData.push(donation);
+              }
 
             });
             self.overviewData = self.overviewData.sort(function (a, b) {
