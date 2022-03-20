@@ -100,6 +100,14 @@
         </h1>
         <button v-on:click="loadAllData">載入所有資料</button>
         <button v-on:click="loadTodayData">載入當天修改資料</button>
+        <br>
+
+        <button v-on:click="loadItem1">載入油香功德金資料</button>
+        <button v-on:click="loadItem2">載入增修/整修工程資料</button>
+        <button v-on:click="loadItem3">載入金身雕刻資料</button>
+        <button v-on:click="loadItem4">載入其他資料</button>
+        <br>
+
         <button type="button" onclick="downloadToExcel('tableExcel')">下載</button>
       </div>
 
@@ -175,16 +183,75 @@
           return data.isCash ? "現金": data.isBankTransfer?"匯款":"尚未付款";
         },
         getItem:function(data){
-
-          //{ text: '油香功德金', value: 'item1' },
-            //{ text: '增修/整修工程', value: 'item2' },
-            //{ text: '金身雕刻', value: 'item3' },
-            //{ text: '其他', value: 'item4' },
           return data.item1 ? "油香功德金": 
                  data.item2 ? "增修/整修工程" :
                  data.item3 ? "金身雕刻" :
                  data.item4 ? "其他" :
                 "未勾選";
+        },
+        loadItem1: function () {
+          let self = this;
+          this.overviewData = []
+          donationRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.item1 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        },
+        loadItem2: function () {
+          let self = this;
+          this.overviewData = []
+          donationRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.item2 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        },
+        loadItem3: function () {
+          let self = this;
+          this.overviewData = []
+          donationRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.item3 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        },
+        loadItem4: function () {
+          let self = this;
+          this.overviewData = []
+          donationRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.item4 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
         },
         loadTodayData: function () {
           let self = this;
