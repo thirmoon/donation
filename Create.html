@@ -29,7 +29,23 @@
         地址：<input v-model.trim="newDonation.address" placeholder="地址" id="address">
         <br>
         金額：<input v-model.trim="newDonation.amount"  placeholder="金額" type="number" id="amount">
-        <br>   
+        <br>  
+        付款方式： 
+        <input type="checkbox" id="lightType" v-model.trim="newDonation.isCash">
+        <label for="lightType">現金</label>
+        <input type="checkbox" id="lightType" v-model.trim="newDonation.isBankTransfer">
+        <label for="lightType">匯款</label>
+        <br>
+        項目： 
+        <input type="checkbox" id="lightType" v-model.trim="newDonation.item1">
+        <label for="lightType">油香功德金</label>
+        <input type="checkbox" id="lightType" v-model.trim="newDonation.item2">
+        <label for="lightType">增修/整修工程</label>
+        <input type="checkbox" id="lightType" v-model.trim="newDonation.item3">
+        <label for="lightType">金身雕刻</label>
+        <input type="checkbox" id="lightType" v-model.trim="newDonation.item4">
+        <label for="lightType">其他</label>
+        <br>
         備註：<input v-model.trim="newDonation.memo" placeholder="備註" id="address">
         <br>
         <button v-on:click="addDonation">新增</button>
@@ -64,6 +80,12 @@
           phone: '',
           amount:0,
           address: (params.address != undefined) ? params.address : '',
+          isCash: false,
+            isBankTransfer : false,
+          item1 : false,
+            item2: false,
+            item3:false,
+            item4:false,
           memo: '',
           modifyTime: Date.now()
         },
@@ -79,6 +101,12 @@
             address: donation.address,
             memo: donation.memo,
             amount: donation.amount,
+            isCash: donation.isCash,
+            isBankTransfer : donation.isBankTransfer,
+            item1 : donation.item1,
+            item2: donation.item2,
+            item3:donation.item3,
+            item4:donation.item4,
             modifyTime: Date.now()
           })
         },
@@ -91,6 +119,12 @@
               address: '',
               amount:0,
               memo: '',
+              isCash: false,
+            isBankTransfer : false,
+          item1 : false,
+            item2: false,
+            item3:false,
+            item4:false,
               modifyTime: Date.now()
             }
             location.reload();
