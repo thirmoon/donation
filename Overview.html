@@ -69,7 +69,7 @@
             <input  :name="item.phone" v-model.trim="item.phone" id="overview_phone">
           </template>
           <template v-slot:item.amount="{ item }">
-            <input  :name="item.amount" v-model.trim="item.amount" id="overview_amount">
+            <input  :name="item.amount" v-model.trim="item.amount" id="overview_phone">
           </template>
           <template v-slot:item.isCash="{ item }">
             <input type="checkbox"  v-model.trim="item.isCash">
@@ -77,8 +77,17 @@
           <template v-slot:item.isBankTransfer="{ item }">
             <input type="checkbox"  v-model.trim="item.isBankTransfer">
           </template>
-          <template v-slot:item.item="{ item }">
-            <input  :name="item.item" v-model.trim="item.item" id="overview_amount">
+          <template v-slot:item.item1="{ item }">
+            <input type="checkbox"  v-model.trim="item.item1">
+          </template>
+          <template v-slot:item.item2="{ item }">
+            <input type="checkbox"  v-model.trim="item.item2">
+          </template>
+          <template v-slot:item.item3="{ item }">
+            <input type="checkbox"  v-model.trim="item.item3">
+          </template>
+          <template v-slot:item.item4="{ item }">
+            <input type="checkbox"  v-model.trim="item.item4">
           </template>
           <template v-slot:item.memo="{ item }">
             <input  :name="item.memo" v-model.trim="item.memo">
@@ -119,7 +128,10 @@
             { text: '金額', value: 'amount' },
             { text: '現金', value: 'isCash' },
             { text: '匯款', value: 'isBankTransfer' },
-            { text: '項目', value: 'item' },
+            { text: '油箱功德金', value: 'item1' },
+            { text: '增修/整修工程', value: 'item2' },
+            { text: '金身雕刻', value: 'item3' },
+            { text: '其他', value: 'item4' },
             { text: '備註', value: 'memo' },
             { text: '操作', value: 'actions' },
 
