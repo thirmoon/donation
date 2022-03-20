@@ -112,6 +112,9 @@
             <td>地址</td>
             <td>電話</td>
             <td>金額</td>
+            <td>匯款方式</td>
+            <td>項目</td>
+
           </tr>
         </thead>
         <tr v-for="data in overviewData">
@@ -120,6 +123,8 @@
           <td> {{data.address}}</td>
           <td> {{data.phone}}</td>
           <td> {{data.amount}}</td>
+          <td> {{getMethod(data)}}</td>
+          <td> {{getItem(data)}}</td>
         </tr>
       </table>
     </ul>
@@ -165,6 +170,21 @@
               return a.address > b.address ? -1 : 1;
             });
           });
+        },
+        getMethod:function(data){
+          return data.isCash ? "現金": data.isBankTransfer?"匯款":"尚未付款";
+        },
+        getItem:function(data){
+
+          //{ text: '油香功德金', value: 'item1' },
+            //{ text: '增修/整修工程', value: 'item2' },
+            //{ text: '金身雕刻', value: 'item3' },
+            //{ text: '其他', value: 'item4' },
+          return data.item1 ? "油香功德金": 
+                 data.item2 ? "增修/整修工程" :
+                 data.item3 ? "金身雕刻" :
+                 data.item4 ? "其他" :
+                "未勾選";
         },
         loadTodayData: function () {
           let self = this;

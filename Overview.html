@@ -28,7 +28,7 @@
         <h1 class="page-title">
           <a href="Create.html">新增</a> |
           <a href="Overview.html">總覽</a> |
-          <a href="Download.html">下載</a> |
+          <a href="Download.html">下載</a> 
         </h1>
       </div>
 
@@ -39,8 +39,10 @@
   </div>
   <script type="text/x-template" id="app-template">
     <v-app id="inspire">
-      <ul>
-        總金額:<input type="text" v-model="balance" readonly> </ul>
+      <ul> 總金額:<input type="text" v-model="balance" readonly> </ul>
+      <ul> 現金:<input type="text" v-model="cash_balance" readonly> </ul>
+      <ul> 匯款:<input type="text" v-model="bank_transfer_balance" readonly> </ul>
+
       <ul>
       <v-btn elevation="2"  v-on:click="addByName" >以姓名新增</v-btn>
       <v-btn elevation="2"  v-on:click="addByAddress" >以地址新增</v-btn>
@@ -121,6 +123,8 @@
         return {
           overviewData: [],
           balance:0,
+          cash_balance:0,
+          bank_transfer_balance:0,
           headers: [
             { text: '功德主姓名', value: 'name' },
             { text: '地址', value: 'address' },
@@ -128,7 +132,7 @@
             { text: '金額', value: 'amount' },
             { text: '現金', value: 'isCash' },
             { text: '匯款', value: 'isBankTransfer' },
-            { text: '油箱功德金', value: 'item1' },
+            { text: '油香功德金', value: 'item1' },
             { text: '增修/整修工程', value: 'item2' },
             { text: '金身雕刻', value: 'item3' },
             { text: '其他', value: 'item4' },
@@ -157,6 +161,13 @@
               donation.key = data.key;
               self.overviewData.push(donation);
               self.balance+=Number(donation.amount);
+              if(donation.isCash){
+                self.cash_balance+=Number(donation.amount);
+              }
+              if(donation.isBankTransfer){
+                self.bank_transfer_balance+=Number(donation.amount);
+              }
+
             });
 
             self.overviewData = self.overviewData.sort(function (a, b) {
