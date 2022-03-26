@@ -73,6 +73,9 @@
             <template v-slot:item.item6Balance="{ item }">
               {{getDisplayNumber(item.item6Balance)}}
             </template>
+            <template v-slot:item.totalbalance="{ item }">
+              {{getDisplayNumber(item.totalbalance)}}
+            </template>
             <template slot="body.append">
               <tr class="pink--text">
                   <th class="title">總計</th>
@@ -82,6 +85,8 @@
                   <th class="title">{{ getDisplayNumber(sumField('item4Balance')) }}</th>
                   <th class="title">{{ getDisplayNumber(sumField('item5Balance')) }}</th>
                   <th class="title">{{ getDisplayNumber(sumField('item6Balance'))}}</th>
+                  <th class="title">{{ getDisplayNumber(sumField('totalbalance'))}}</th>
+
                   
               </tr>
           </template>
@@ -180,6 +185,7 @@
             balances: [
               {
                 label: "未付款",
+                totalbalance:0,
                 item1Balance: 0,
                 item2Balance: 0,
                 item3Balance: 0,
@@ -190,6 +196,7 @@
               },
               {
                 label: "現金",
+                totalbalance:0,
                 item1Balance: 0,
                 item2Balance: 0,
                 item3Balance: 0,
@@ -199,6 +206,7 @@
               },
               {
                 label: "匯款",
+                totalbalance:0,
                 item1Balance: 0,
                 item2Balance: 0,
                 item3Balance: 0,
@@ -233,6 +241,8 @@
               { text: "九龍椅", value: "item4Balance" },
               { text: "文昌筆", value: "item5Balance" },
               { text: "其他", value: "item6Balance" },
+              { text: "總計", value: "totalbalance" },
+
 
             ],
             search: "",
@@ -284,7 +294,7 @@
                   index = 2;
                 };
 
-                self.balances[index].balance += Number(donation.amount);
+                self.balances[index].totalbalance += Number(donation.amount);
 
                 if (donation.item1) {
                   self.balances[index].item1Balance += Number(donation.amount);
