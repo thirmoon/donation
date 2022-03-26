@@ -105,7 +105,11 @@
         <button v-on:click="loadItem1">載入油香功德金資料</button>
         <button v-on:click="loadItem2">載入增建/整修工程資料</button>
         <button v-on:click="loadItem3">載入金身雕刻資料</button>
-        <button v-on:click="loadItem4">載入其他資料</button>
+        <button v-on:click="loadItem4">載入九龍椅資料</button>
+        <button v-on:click="loadItem5">載入文昌筆資料</button>
+        <button v-on:click="loadItem6">載入其他資料</button>
+
+
         <br>
 
         <button type="button" onclick="downloadToExcel('tableExcel')">下載</button>
@@ -191,7 +195,10 @@
           return data.item1 ? "油香功德金": 
                  data.item2 ? "增修/整修工程" :
                  data.item3 ? "金身雕刻" :
-                 data.item4 ? "其他" :
+                 data.item4 ? "九龍椅" :
+                 data.item5 ? "文昌筆" :
+                 data.item6 ? "其他" :
+
                 "未勾選";
         },
         getDisplayTime:function(time){
@@ -256,6 +263,38 @@
             snapshot.forEach(function (data) {
               let user = data.val();
               if (user.item4 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        },
+        loadItem5: function () {
+          let self = this;
+          this.overviewData = []
+          donationRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.item5 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        },
+        loadItem6: function () {
+          let self = this;
+          this.overviewData = []
+          donationRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.item6 == true) {
                 user.key = data.key;
                 self.overviewData.push(user);
               }
