@@ -123,6 +123,7 @@
             <td>匯款方式</td>
             <td>項目</td>
             <td>日期</td>
+            <td>備註</td>
 
           </tr>
         </thead>
@@ -135,6 +136,8 @@
           <td> {{getMethod(data)}}</td>
           <td> {{getItem(data)}}</td>
           <td> {{getDisplayTime(data.modifyTime)}}</td>
+          <td> {{data.memo}}</td>
+
         </tr>
       </table>
     </ul>
