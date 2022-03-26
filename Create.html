@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>慈善亭 | 重大建設捐獻</title>
+  <title>慈善亭 | 油香功德金捐獻</title>
   <link rel="stylesheet" href="./src/css/headquaters.css">
   <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
@@ -15,7 +15,7 @@
   <div id="app">
     <section id="admin-wrapper">
       <div id="form-wrapper">
-        <h1 class="page-title">慈善亭 | 重大建設捐獻</h1>
+        <h1 class="page-title">慈善亭 | 油香功德金捐獻</h1>
         <h1 class="page-title">
           <a href="Create.html">新增</a> |
           <a href="Overview.html">總覽</a> |
@@ -40,10 +40,14 @@
         <input type="checkbox" id="lightType" v-model.trim="newDonation.item1">
         <label for="lightType">油香功德金</label>
         <input type="checkbox" id="lightType" v-model.trim="newDonation.item2">
-        <label for="lightType">增修/整修工程</label>
+        <label for="lightType">增建/整修工程</label>
         <input type="checkbox" id="lightType" v-model.trim="newDonation.item3">
         <label for="lightType">金身雕刻</label>
         <input type="checkbox" id="lightType" v-model.trim="newDonation.item4">
+        <label for="lightType">九龍椅</label>
+        <input type="checkbox" id="lightType" v-model.trim="newDonation.item5">
+        <label for="lightType">文昌筆</label>
+        <input type="checkbox" id="lightType" v-model.trim="newDonation.item6">
         <label for="lightType">其他</label>
         <br>
         備註：<input v-model.trim="newDonation.memo" placeholder="備註" id="address">

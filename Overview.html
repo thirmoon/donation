@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>慈善亭 | 重大建設捐獻</title>
+    <title>慈善亭 | 油香功德金捐獻</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -56,24 +56,33 @@
             fixed-header
             height="400px">
             <template v-slot:item.item1Balance="{ item }">
-              {{item.item1Balance.toLocaleString()}}
+              {{getDisplayNumber(item.item1Balance)}}
             </template>
             <template v-slot:item.item2Balance="{ item }">
-              {{item.item2Balance.toLocaleString()}}
+              {{getDisplayNumber(item.item2Balance)}}
             </template>
             <template v-slot:item.item3Balance="{ item }">
-              {{item.item3Balance.toLocaleString()}}
+              {{getDisplayNumber(item.item3Balance)}}
             </template>
             <template v-slot:item.item4Balance="{ item }">
-              {{item.item4Balance.toLocaleString()}}
+              {{getDisplayNumber(item.item4Balance)}}
+            </template>
+            <template v-slot:item.item5Balance="{ item }">
+              {{getDisplayNumber(item.item5Balance)}}
+            </template>
+            <template v-slot:item.item6Balance="{ item }">
+              {{getDisplayNumber(item.item6Balance)}}
             </template>
             <template slot="body.append">
               <tr class="pink--text">
                   <th class="title">總計</th>
-                  <th class="title">{{ sumField('item1Balance').toLocaleString()}}</th>
-                  <th class="title">{{ sumField('item2Balance').toLocaleString() }}</th>
-                  <th class="title">{{ sumField('item3Balance').toLocaleString() }}</th>
-                  <th class="title">{{ sumField('item4Balance').toLocaleString() }}</th>
+                  <th class="title">{{ getDisplayNumber(sumField('item1Balance'))}}</th>
+                  <th class="title">{{ getDisplayNumber(sumField('item2Balance')) }}</th>
+                  <th class="title">{{ getDisplayNumber(sumField('item3Balance')) }}</th>
+                  <th class="title">{{ getDisplayNumber(sumField('item4Balance')) }}</th>
+                  <th class="title">{{ getDisplayNumber(sumField('item5Balance')) }}</th>
+                  <th class="title">{{ getDisplayNumber(sumField('item6Balance'))}}</th>
+                  
               </tr>
           </template>
           </v-data-table>
@@ -127,6 +136,12 @@
             </template>
             <template v-slot:item.item4="{ item }">
               <input type="checkbox"  v-model.trim="item.item4">
+            </template>
+            <template v-slot:item.item5="{ item }">
+              <input type="checkbox"  v-model.trim="item.item5">
+            </template>
+            <template v-slot:item.item6="{ item }">
+              <input type="checkbox"  v-model.trim="item.item6">
             </template>
             <template v-slot:item.memo="{ item }">
               <input  :name="item.memo" v-model.trim="item.memo">
@@ -193,9 +208,11 @@
               { text: "現金", value: "isCash" },
               { text: "匯款", value: "isBankTransfer" },
               { text: "油香功德金", value: "item1" },
-              { text: "增修/整修工程", value: "item2" },
+              { text: "增建/整修工程", value: "item2" },
               { text: "金身雕刻", value: "item3" },
-              { text: "其他", value: "item4" },
+              { text: "九龍椅", value: "item4" },
+              { text: "文昌筆", value: "item5" },
+              { text: "其他", value: "item6" },
               { text: "備註", value: "memo" },
               { text: "日期", value: "modifiedDate" },
               { text: "操作", value: "actions" },
@@ -204,9 +221,12 @@
             balanceHeaders: [
               { text: "項目", value: "label" },
               { text: "油香功德金", value: "item1Balance" },
-              { text: "增修/整修工程", value: "item2Balance" },
+              { text: "增建/整修工程", value: "item2Balance" },
               { text: "金身雕刻", value: "item3Balance" },
-              { text: "其他", value: "item4Balance" },
+              { text: "九龍椅", value: "item4Balance" },
+              { text: "文昌筆", value: "item5Balance" },
+              { text: "其他", value: "item6Balance" },
+
             ],
             search: "",
           };
@@ -267,6 +287,10 @@
                   self.balances[index].item3Balance += Number(donation.amount);
                 } else if (donation.item4) {
                   self.balances[index].item4Balance += Number(donation.amount);
+                }else if (donation.item5) {
+                  self.balances[index].item5Balance += Number(donation.amount);
+                }else if (donation.item6) {
+                  self.balances[index].item6Balance += Number(donation.amount);
                 }
               
               }
@@ -313,7 +337,13 @@
             }
             let dateTime = new Date(time);
             return dateTime.toISOString().slice(0, 10);;
-          }
+          },
+          getDisplayNumber: function (number) {
+            if(number==undefined || number == null){
+              return 0;
+            }
+            return number.toLocaleString()
+          },
         },
       };
       new Vue({
