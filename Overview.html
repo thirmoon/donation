@@ -54,17 +54,26 @@
             class="elevation-1"
             item-key="key"
             fixed-header
-            height="４00px">
-            <template v-slot:item.remain="{ item }">
-             {{item.balance-item.cashBalance-item.bankTransferBalance}}
+            height="400px">
+            <template v-slot:item.item1Balance="{ item }">
+              {{item.item1Balance.toLocaleString()}}
+            </template>
+            <template v-slot:item.item2Balance="{ item }">
+              {{item.item2Balance.toLocaleString()}}
+            </template>
+            <template v-slot:item.item3Balance="{ item }">
+              {{item.item3Balance.toLocaleString()}}
+            </template>
+            <template v-slot:item.item4Balance="{ item }">
+              {{item.item4Balance.toLocaleString()}}
             </template>
             <template slot="body.append">
               <tr class="pink--text">
                   <th class="title">總計</th>
-                  <th class="title">{{sumField('item1Balance')}}</th>
-                  <th class="title">{{sumField('item2Balance') }}</th>
-                  <th class="title">{{ sumField('item3Balance') }}</th>
-                  <th class="title">{{ sumField('item4Balance') }}</th>
+                  <th class="title">{{ sumField('item1Balance').toLocaleString()}}</th>
+                  <th class="title">{{ sumField('item2Balance').toLocaleString() }}</th>
+                  <th class="title">{{ sumField('item3Balance').toLocaleString() }}</th>
+                  <th class="title">{{ sumField('item4Balance').toLocaleString() }}</th>
               </tr>
           </template>
           </v-data-table>
