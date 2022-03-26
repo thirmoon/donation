@@ -61,10 +61,10 @@
             <template slot="body.append">
               <tr class="pink--text">
                   <th class="title">總計</th>
-                  <th class="title">{{sumField('balance')}}</th>
-                  <th class="title">{{sumField('cashBalance') }}</th>
-                  <th class="title">{{ sumField('bankTransferBalance') }}</th>
-                  <th class="title">{{ sumField('balance')-sumField('cashBalance') -sumField('bankTransferBalance') }}</th>
+                  <th class="title">{{sumField('item1Balance')}}</th>
+                  <th class="title">{{sumField('item2Balance') }}</th>
+                  <th class="title">{{ sumField('item3Balance') }}</th>
+                  <th class="title">{{ sumField('item4Balance') }}</th>
               </tr>
           </template>
           </v-data-table>
@@ -155,35 +155,26 @@
             overviewData: [],
             balances: [
               {
-                label: "未勾選",
-                balance: 0,
-                cashBalance: 0,
-                bankTransferBalance: 0,
+                label: "未付款",
+                item1Balance: 0,
+                item2Balance: 0,
+                item3Balance: 0,
+                item4Balance: 0
               },
               {
-                label: "油香功德金",
-                balance: 0,
-                cashBalance: 0,
-                bankTransferBalance: 0,
+                label: "現金",
+                item1Balance: 0,
+                item2Balance: 0,
+                item3Balance: 0,
+                item4Balance: 0
               },
               {
-                label: "增修/整修工程",
-                balance: 0,
-                cashBalance: 0,
-                bankTransferBalance: 0,
-              },
-              {
-                label: "金身雕刻",
-                balance: 0,
-                cashBalance: 0,
-                bankTransferBalance: 0,
-              },
-              {
-                label: "其他",
-                balance: 0,
-                cashBalance: 0,
-                bankTransferBalance: 0,
-              },
+                label: "匯款",
+                item1Balance: 0,
+                item2Balance: 0,
+                item3Balance: 0,
+                item4Balance: 0
+              }
             ],
             headers: [
               { text: "功德主姓名", value: "name" },
@@ -203,10 +194,10 @@
 
             balanceHeaders: [
               { text: "項目", value: "label" },
-              { text: "總金額", value: "balance" },
-              { text: "現金", value: "cashBalance" },
-              { text: "匯款", value: "bankTransferBalance" },
-              { text: "未付款", value: "remain" },
+              { text: "油香功德金", value: "item1Balance" },
+              { text: "增修/整修工程", value: "item2Balance" },
+              { text: "金身雕刻", value: "item3Balance" },
+              { text: "其他", value: "item4Balance" },
             ],
             search: "",
           };
@@ -249,26 +240,49 @@
             let self = this;
             this.overviewData.forEach(function (donation) {
               let index = 0;
+              
               if (donation.amount > 0) {
-                if (donation.item1) {
-                  index = 1;
-                } else if (donation.item2) {
-                  index = 2;
-                } else if (donation.item3) {
-                  index = 3;
-                } else if (donation.item4) {
-                  index = 4;
-                }
-                self.balances[index].balance += Number(donation.amount);
                 if (donation.isCash) {
-                  self.balances[index].cashBalance += Number(donation.amount);
+                  index = 1;
+                } else if (donation.isBankTransfer) {
+                  index = 2;
+                };
+
+                self.balances[index].balance += Number(donation.amount);
+
+                if (donation.item1) {
+                  self.balances[index].item1Balance += Number(donation.amount);
+                } else if (donation.item2) {
+                  self.balances[index].item2Balance += Number(donation.amount);
+                } else if (donation.item3) {
+                  self.balances[index].item3Balance += Number(donation.amount);
+                } else if (donation.item4) {
+                  self.balances[index].item4Balance += Number(donation.amount);
                 }
-                if (donation.isBankTransfer) {
-                  self.balances[index].bankTransferBalance += Number(
-                    donation.amount
-                  );
-                }
+              
               }
+
+
+              // if (donation.amount > 0) {
+              //   if (donation.item1) {
+              //     index = 1;
+              //   } else if (donation.item2) {
+              //     index = 2;
+              //   } else if (donation.item3) {
+              //     index = 3;
+              //   } else if (donation.item4) {
+              //     index = 4;
+              //   }
+              //   self.balances[index].balance += Number(donation.amount);
+              //   if (donation.isCash) {
+              //     self.balances[index].cashBalance += Number(donation.amount);
+              //   }
+              //   if (donation.isBankTransfer) {
+              //     self.balances[index].bankTransferBalance += Number(
+              //       donation.amount
+              //     );
+              //   }
+              // }
             });
           },
           updateDonation: function (data) {
