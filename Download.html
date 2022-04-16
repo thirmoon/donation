@@ -144,6 +144,36 @@
           <td> {{data.memo}}</td>
 
         </tr>
+        <tr>
+          <td> </td>
+          <td> </td>
+          <td> 現金</td>
+          <td> {{cashBalance}}</td>
+          <td></td>
+          <td> </td>
+          <td></td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td> </td>
+          <td> </td>
+          <td> 匯款</td>
+          <td> {{bankTransferBalance}}</td>
+          <td></td>
+          <td> </td>
+          <td></td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td> </td>
+          <td> </td>
+          <td> 總金額</td>
+          <td> {{totalBalance}}</td>
+          <td></td>
+          <td> </td>
+          <td></td>
+          <td> </td>
+        </tr>
       </table>
     </ul>
   </div>
@@ -166,6 +196,9 @@
       el: '#app',
       data: {
         overviewData: [],
+        totalBalance:0,
+        cashBalance:0,
+        bankTransferBalance:0,
         today: null
       },
       firebase: {
@@ -173,6 +206,7 @@
       },
       methods: {
         loadAllData: function () {
+          this.clearBalance();
           let self = this;
           this.overviewData = []
           donationRef.once("value", function (snapshot) {
@@ -181,7 +215,9 @@
               donation.key = data.key;
               if(donation.amount !=0){
                 self.overviewData.push(donation);
+                self.updateBalance(donation);
               }
+
 
             });
             self.overviewData = self.overviewData.sort(function (a, b) {
@@ -191,6 +227,20 @@
         },
         getMethod:function(data){
           return data.isCash ? "現金": data.isBankTransfer?"匯款":"尚未付款";
+        },
+        updateBalance:function(user){
+          if(user.isCash){
+                  this.cashBalance+=Number(user.amount);
+                }
+                if(user.isBankTransfer){
+                  this.bankTransferBalance+=Number(user.amount);
+                }
+                this.totalBalance+=Number(user.amount);
+        },
+        clearBalance:function(){
+         this.cashBalance=0;
+         this.bankTransferBalance=0;
+         this.totalBalance=0;
         },
         getItem:function(data){
           return data.item1 ? "油香功德金": 
@@ -212,6 +262,7 @@
             return dateTime.toISOString().slice(0, 10);
         },
         loadItem1: function () {
+          this.clearBalance();
           let self = this;
           this.overviewData = []
           donationRef.once("value", function (snapshot) {
@@ -220,6 +271,7 @@
               if (user.item1 == true) {
                 user.key = data.key;
                 self.overviewData.push(user);
+                self.updateBalance(user);
               }
             });
             self.overviewData = self.overviewData.sort(function (a, b) {
@@ -228,6 +280,7 @@
           });
         },
         loadItem2: function () {
+          this.clearBalance();
           let self = this;
           this.overviewData = []
           donationRef.once("value", function (snapshot) {
@@ -236,6 +289,7 @@
               if (user.item2 == true) {
                 user.key = data.key;
                 self.overviewData.push(user);
+                self.updateBalance(user);
               }
             });
             self.overviewData = self.overviewData.sort(function (a, b) {
@@ -244,6 +298,7 @@
           });
         },
         loadItem3: function () {
+          this.clearBalance();
           let self = this;
           this.overviewData = []
           donationRef.once("value", function (snapshot) {
@@ -252,6 +307,7 @@
               if (user.item3 == true) {
                 user.key = data.key;
                 self.overviewData.push(user);
+                self.updateBalance(user);
               }
             });
             self.overviewData = self.overviewData.sort(function (a, b) {
@@ -260,6 +316,7 @@
           });
         },
         loadItem4: function () {
+          this.clearBalance();
           let self = this;
           this.overviewData = []
           donationRef.once("value", function (snapshot) {
@@ -268,6 +325,7 @@
               if (user.item4 == true) {
                 user.key = data.key;
                 self.overviewData.push(user);
+                self.updateBalance(user);
               }
             });
             self.overviewData = self.overviewData.sort(function (a, b) {
@@ -276,6 +334,7 @@
           });
         },
         loadItem5: function () {
+          this.clearBalance();
           let self = this;
           this.overviewData = []
           donationRef.once("value", function (snapshot) {
@@ -284,6 +343,7 @@
               if (user.item5 == true) {
                 user.key = data.key;
                 self.overviewData.push(user);
+                self.updateBalance(user);
               }
             });
             self.overviewData = self.overviewData.sort(function (a, b) {
@@ -292,6 +352,7 @@
           });
         },
         loadItem6: function () {
+          this.clearBalance();
           let self = this;
           this.overviewData = []
           donationRef.once("value", function (snapshot) {
@@ -300,6 +361,7 @@
               if (user.item6 == true) {
                 user.key = data.key;
                 self.overviewData.push(user);
+                self.updateBalance(user);
               }
             });
             self.overviewData = self.overviewData.sort(function (a, b) {
@@ -308,6 +370,7 @@
           });
         },
         loadItem7: function () {
+          this.clearBalance();
           let self = this;
           this.overviewData = []
           donationRef.once("value", function (snapshot) {
@@ -316,6 +379,7 @@
               if (user.item7 == true) {
                 user.key = data.key;
                 self.overviewData.push(user);
+                self.updateBalance(user);
               }
             });
             self.overviewData = self.overviewData.sort(function (a, b) {
