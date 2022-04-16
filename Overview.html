@@ -90,10 +90,14 @@
                   <th class="title">{{ getDisplayNumber(sumField('item6Balance'))}}</th>
                   <th class="title">{{ getDisplayNumber(sumField('item7Balance'))}}</th>
                   <th class="title">{{ getDisplayNumber(sumField('totalbalance'))}}</th>
-
-                  
               </tr>
           </template>
+          <template slot="body.append">
+            <tr class="pink--text">
+                <th class="title">桌數</th>
+                <th class="title">{{tableCount}}</th>
+            </tr>
+        </template>
           </v-data-table>
           </v-card>
           <br>
@@ -191,6 +195,7 @@
         data() {
           return {
             overviewData: [],
+            tableCount:0,
             balances: [
               {
                 label: "未付款",
@@ -324,6 +329,10 @@
                 }else if (donation.item6) {
                   self.balances[index].item6Balance += Number(donation.amount);
                 }else if (donation.item7) {
+                  if(donation.memo && donation.memo.includes("桌")){
+                    let tableValue = donation.memo.replace("桌","");
+                    self.tableCount+=Number(tableValue);
+                  }
                   self.balances[index].item7Balance += Number(donation.amount);
                 }
               
