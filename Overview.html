@@ -73,6 +73,9 @@
             <template v-slot:item.item6Balance="{ item }">
               {{getDisplayNumber(item.item6Balance)}}
             </template>
+            <template v-slot:item.item7Balance="{ item }">
+              {{getDisplayNumber(item.item7Balance)}}
+            </template>
             <template v-slot:item.totalbalance="{ item }">
               {{getDisplayNumber(item.totalbalance)}}
             </template>
@@ -85,6 +88,7 @@
                   <th class="title">{{ getDisplayNumber(sumField('item4Balance')) }}</th>
                   <th class="title">{{ getDisplayNumber(sumField('item5Balance')) }}</th>
                   <th class="title">{{ getDisplayNumber(sumField('item6Balance'))}}</th>
+                  <th class="title">{{ getDisplayNumber(sumField('item7Balance'))}}</th>
                   <th class="title">{{ getDisplayNumber(sumField('totalbalance'))}}</th>
 
                   
@@ -148,6 +152,9 @@
             <template v-slot:item.item6="{ item }">
               <input type="checkbox"  v-model.trim="item.item6">
             </template>
+            <template v-slot:item.item7="{ item }">
+              <input type="checkbox"  v-model.trim="item.item7">
+            </template>
             <template v-slot:item.memo="{ item }">
               <input  :name="item.memo" v-model.trim="item.memo">
             </template>
@@ -191,7 +198,8 @@
                 item3Balance: 0,
                 item4Balance: 0,
                 item5Balance: 0,
-                item6Balance: 0
+                item6Balance: 0,
+                item7Balance: 0
 
               },
               {
@@ -202,7 +210,8 @@
                 item3Balance: 0,
                 item4Balance: 0,
                 item5Balance: 0,
-                item6Balance: 0
+                item6Balance: 0,
+                item7Balance: 0
               },
               {
                 label: "匯款",
@@ -212,7 +221,8 @@
                 item3Balance: 0,
                 item4Balance: 0, 
                 item5Balance: 0,
-                item6Balance: 0
+                item6Balance: 0,
+                item7Balance: 0
               }
             ],
             headers: [
@@ -228,6 +238,8 @@
               { text: "九龍椅", value: "item4" },
               { text: "文昌筆", value: "item5" },
               { text: "其他", value: "item6" },
+              { text: "供品桌", value: "item7" },
+
               { text: "備註", value: "memo" },
               { text: "日期", value: "modifiedDate" },
               { text: "操作", value: "actions" },
@@ -241,6 +253,7 @@
               { text: "九龍椅", value: "item4Balance" },
               { text: "文昌筆", value: "item5Balance" },
               { text: "其他", value: "item6Balance" },
+              { text: "供品桌", value: "item7Balance" },
               { text: "總計", value: "totalbalance" },
 
 
@@ -308,6 +321,8 @@
                   self.balances[index].item5Balance += Number(donation.amount);
                 }else if (donation.item6) {
                   self.balances[index].item6Balance += Number(donation.amount);
+                }else if (donation.item7) {
+                  self.balances[index].item7Balance += Number(donation.amount);
                 }
               
               }

@@ -108,6 +108,7 @@
         <button v-on:click="loadItem4">載入九龍椅資料</button>
         <button v-on:click="loadItem5">載入文昌筆資料</button>
         <button v-on:click="loadItem6">載入其他資料</button>
+        <button v-on:click="loadItem7">載入供品桌資料</button>
 
 
         <br>
@@ -198,6 +199,8 @@
                  data.item4 ? "九龍椅" :
                  data.item5 ? "文昌筆" :
                  data.item6 ? "其他" :
+                 data.item7 ? "供品桌" :
+
 
                 "未勾選";
         },
@@ -295,6 +298,22 @@
             snapshot.forEach(function (data) {
               let user = data.val();
               if (user.item6 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        },
+        loadItem7: function () {
+          let self = this;
+          this.overviewData = []
+          donationRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.item7 == true) {
                 user.key = data.key;
                 self.overviewData.push(user);
               }

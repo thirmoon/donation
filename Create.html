@@ -49,6 +49,8 @@
         <label for="lightType">文昌筆</label>
         <input type="checkbox" id="lightType" v-model.trim="newDonation.item6">
         <label for="lightType">其他</label>
+        <input type="checkbox" id="lightType" v-model.trim="newDonation.item7">
+        <label for="lightType">供品桌</label>
         <br>
         備註：<input v-model.trim="newDonation.memo" placeholder="備註" id="address">
         <br>
@@ -114,8 +116,9 @@
             item2: donation.item2,
             item3:donation.item3,
             item4:donation.item4,
-            item5:donation.item6,
-            item5:donation.item6,
+            item5:donation.item5,
+            item6:donation.item6,
+            item7:donation.item7,
 
             modifyTime: Date.now()
           })
@@ -137,7 +140,7 @@
             item4:false,
             item5:false,
             item6:false,
-
+            item7:false,
               modifyTime: Date.now()
             }
             location.reload();
