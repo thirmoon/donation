@@ -94,6 +94,7 @@
             item4:false,
             item5:false,
             item6:false,
+            item7:false,
 
           memo: '',
           modifyTime: Date.now()
@@ -104,6 +105,7 @@
       },
       methods: {
         addDonationToFirebase: function (donation) {
+
           donationRef.push({
             name: donation.name,
             phone: donation.phone,
