@@ -402,6 +402,7 @@
               if (modifyTime > self.today) {
                 donation.key = data.key;
                 self.overviewData.push(donation);
+                self.updateBalance(donation);
               }
             });
             self.overviewData = self.overviewData.sort(function (a, b) {
